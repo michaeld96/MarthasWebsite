@@ -12,6 +12,8 @@ builder.Services.AddDbContext<StoreContext>(opt =>
 
 // Build  the application.
 var app = builder.Build();
+// Seed the Db.
+DbInitializer.InitDb(app);
 
 // Middleware. Software that interacts with incoming and outgoing requests. 
 app.MapControllers();
