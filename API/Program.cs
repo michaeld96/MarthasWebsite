@@ -9,13 +9,20 @@ builder.Services.AddDbContext<StoreContext>(opt =>
 {
     opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnect"));
 });
+builder.Services.AddCors();
 
 // Build  the application.
 var app = builder.Build();
+
+// Middleware. Software that interacts with incoming and outgoing requests. 
+app.UseCors(opt =>
+{
+    opt.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:3000");
+});
+app.MapControllers();
 // Seed the Db.
 DbInitializer.InitDb(app);
 
-// Middleware. Software that interacts with incoming and outgoing requests. 
-app.MapControllers();
+
 
 app.Run();
